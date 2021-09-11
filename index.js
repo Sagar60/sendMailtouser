@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 const nodeMailer = require('nodemailer');
+const cors = require('cors');
+
 var tranporter = nodeMailer.createTransport({
     service: 'gmail',
     auth: {
@@ -8,6 +10,8 @@ var tranporter = nodeMailer.createTransport({
         pass: 'sagar123!'
     }
 })
+
+app.use(cors());
 
 app.use('/sendMail',(req,res,next)=>{
     let mailOptions = {
