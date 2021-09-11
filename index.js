@@ -2,6 +2,9 @@ const express = require('express');
 const app = express();
 const nodeMailer = require('nodemailer');
 const cors = require('cors');
+const morgan = require('morgan');       // morgan use to see what api use toin client site and for how long it give response
+const bodyParser = require('body-parser');
+
 
 var tranporter = nodeMailer.createTransport({
     service: 'gmail',
@@ -11,7 +14,11 @@ var tranporter = nodeMailer.createTransport({
     }
 })
 
+app.use(morgan('dev'));
 app.use(cors());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 
 app.use('/sendMail',(req,res,next)=>{
     let mailOptions = {
